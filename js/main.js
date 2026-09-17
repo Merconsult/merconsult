@@ -95,3 +95,50 @@ const nav=document.getElementById('nav');const menu=document.querySelector('.men
   });
   window.addEventListener('hashchange', goToGalleryHash);
 })();
+
+
+// Formulario de contacto Web3Forms (compatible con GitHub Pages)
+(() => {
+  const forms = document.querySelectorAll('form[data-web3forms="true"]');
+  if (!forms.length) return;
+
+  forms.forEach((form) => {
+    const button = form.querySelector('button[type="submit"]');
+    const result = form.querySelector('.form-result');
+    const originalLabel = button ? button.textContent : '';
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!button || !result) return;
+
+      button.disabled = true;
+      button.textContent = form.dataset.sending || 'Sending...';
+      result.textContent = '';
+      result.className = 'form-result';
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await response.json();
+
+        if (data.success) {
+          result.textContent = form.dataset.success || 'Message sent successfully.';
+          result.classList.add('success');
+          form.reset();
+        } else {
+          throw new Error(data.message || 'Web3Forms error');
+        }
+      } catch (error) {
+        console.error('Contact form error:', error);
+        result.textContent = form.dataset.error || 'The message could not be sent.';
+        result.classList.add('error');
+      } finally {
+        button.disabled = false;
+        button.textContent = originalLabel;
+      }
+    });
+  });
+})();

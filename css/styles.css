@@ -242,3 +242,10 @@ body.lightbox-open{overflow:hidden}
 .stats-illustration{margin-top:28px;border-radius:26px;overflow:hidden;box-shadow:0 18px 42px rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.10);max-width:560px}
 .stats-illustration img{display:block;width:100%;height:auto;max-width:100%;object-fit:contain}
 @media(max-width:900px){.stats-illustration{max-width:720px;margin-top:24px}}
+
+/* Formulario Web3Forms */
+.form-botcheck{position:absolute!important;left:-9999px!important;opacity:0!important;pointer-events:none!important}
+.contact-form button[disabled]{opacity:.65;cursor:wait}
+.form-result{min-height:24px;margin:4px 0 0;font-size:14px;font-weight:700}
+.form-result.success{color:#16734b}
+.form-result.error{color:#b42318}
